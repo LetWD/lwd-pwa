@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let We Do :: 차세대 AI 학습 플랫폼</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Dark Theme Colors */
+      --bg-base: #0D0E13; /* Very dark, cool base */
+      --bg-panel: #1A1B22; /* Slightly lighter panel */
+      --bg-panel-light: #24252D; /* Lighter for hover, etc. */
+      --border-panel: #2A2B33; /* Border for panels */
+      --border-interactive: #3D3E47; /* Border for buttons, inputs */
+      --text-primary: #f9fafb; /* gray-50 */
+      --text-secondary: #d1d5db; /* gray-300 */
+      --text-tertiary: #9ca3af; /* gray-400 */
+      
+      --accent-primary: #818cf8; /* indigo-400 */
+      --accent-primary-hover: #6366f1; /* indigo-500 */
+      --accent-secondary: #a78bfa; /* violet-400 */
+      
+      --accent-korean: #f472b6; /* pink-400 */
+      --accent-english: #fbbf24; /* amber-400 */
+      --accent-math: #fde047; /* yellow-300 */
+      --accent-social: #4ade80; /* green-400 */
+      --accent-science: #60a5fa; /* blue-400 */
+      --accent-assessment: #c084fc; /* purple-400 */
+
+      --color-correct: #4ade80; /* green-400 */
+      --color-incorrect: #f87171; /* red-400 */
+      --color-warning: #facc15; /* yellow-400 */
+    }
+
+    html, body, #root {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', 'Noto Sans KR', 'Roboto', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wonder-panel {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-panel);
+      border-radius: 0.75rem; /* 12px */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      transition: all 0.2s ease-in-out;
+    }
+    
+    .wonder-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem; 
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      user-select: none;
+    }
+    .wonder-button:focus-visible {
+        outline: 2px solid var(--accent-primary);
+        outline-offset: 2px;
+    }
+    .wonder-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .wonder-button-primary {
+      background-color: var(--accent-primary);
+      color: var(--bg-base);
+      border-color: var(--accent-primary);
+    }
+    .wonder-button-primary:hover:not(:disabled) {
+      background-color: var(--accent-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .wonder-button-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border-color: var(--border-interactive);
+    }
+    .wonder-button-secondary:hover:not(:disabled) {
+      background-color: var(--bg-panel-light);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    
+    .wonder-button-destructive {
+      background-color: transparent;
+      color: var(--color-incorrect);
+      border-color: var(--color-incorrect);
+    }
+    .wonder-button-destructive:hover:not(:disabled) {
+      background-color: var(--color-incorrect);
+      color: white;
+    }
+    
+    .wonder-input {
+      background-color: var(--bg-base);
+      border: 1px solid var(--border-interactive);
+      color: var(--text-primary);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      transition: all 0.2s ease-in-out;
+    }
+    .wonder-input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-primary) 30%, transparent); 
+    }
+    .wonder-input::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    .prose-wonder { color: var(--text-secondary); }
+    .prose-wonder h1, .prose-wonder h2, .prose-wonder h3, .prose-wonder h4, .prose-wonder strong { color: var(--text-primary); }
+
+    .scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--border-interactive) transparent; }
+    .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background-color: var(--border-interactive); border-radius: 3px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--border-interactive) 140%, transparent); }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-base': 'var(--bg-base)', 
+            'bg-panel': 'var(--bg-panel)', 
+            'bg-panel-light': 'var(--bg-panel-light)',
+            'border-panel': 'var(--border-panel)', 
+            'border-interactive': 'var(--border-interactive)', 
+            'text-primary': 'var(--text-primary)', 
+            'text-secondary': 'var(--text-secondary)', 
+            'text-tertiary': 'var(--text-tertiary)', 
+            'accent-primary': 'var(--accent-primary)', 
+            'accent-primary-hover': 'var(--accent-primary-hover)',
+            'accent-secondary': 'var(--accent-secondary)', 
+            'accent-korean': 'var(--accent-korean)',
+            'accent-english': 'var(--accent-english)',
+            'accent-math': 'var(--accent-math)',
+            'accent-social': 'var(--accent-social)',
+            'accent-science': 'var(--accent-science)',
+            'accent-assessment': 'var(--accent-assessment)',
+            'color-correct': 'var(--color-correct)', 
+            'color-incorrect': 'var(--color-incorrect)', 
+            'color-warning': 'var(--color-warning)', 
+          },
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans KR', 'Roboto', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+<link rel="stylesheet" href="/index.css">
+<script type="importmap">
+{
+  "imports": {
+    "vite": "https://esm.sh/vite@^7.0.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^4.6.0",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.7.0",
+    "crypto-js": "https://esm.sh/crypto-js@^4.2.0",
+    "vite-plugin-electron": "https://esm.sh/vite-plugin-electron@^0.29.0",
+    "electron": "https://esm.sh/electron@^37.1.0"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/index-Li08VNSw.js"></script>
+<link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
